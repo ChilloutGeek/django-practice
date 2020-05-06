@@ -20,19 +20,19 @@ class BlogCreate(TemplateView):
 
     template_name = "blog/createblog.html"
 
-    def get(self,request):
+    def get(self,request): #get modelform
         form = BlogForm()
         return render(request,self.template_name,{'form':form})
 
 
-    def post(self, request):
+    def post(self, request): #post method modelform
 
         form = BlogForm(request.POST)
         
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.save()
+        if form.is_valid(): 
+            post = form.save(commit=False) #get modelform data but do not save to database
+            post.author = request.user #get user data from author model
+            post.save() #save to database
             return redirect ('/home')
         return render(request,self.template_name,{'form':form,})
 
