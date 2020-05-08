@@ -10,15 +10,18 @@
 
 </head>
 <body>
+
   <!-- navbar !-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Navbar</a>
+  <a class="navbar-brand" href="#">THE EPIC BLOG </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       <a class="nav-item nav-link active" href="/home">Home </a>
+      <a class="nav-item nav-link" href="/home/createblog">Create Blog</a>
+      <a class="nav-item nav-link" href="/home/createcategory">Create Category</a>
       <a class="nav-item nav-link" href="/about_me">About me</a>
     </div>
   </div>
@@ -27,14 +30,18 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8"> 
+
       {% block content %}
 
       {% endblock %}
+
+    
     </div>
   </div>
+
 </div>
 
-    <hr>
+        
 
 </body>
 
