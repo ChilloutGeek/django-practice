@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import ListView,DetailView,TemplateView
 
-from .models import Post, Category
-from .forms  import BlogForm, CategoryForm
+from .models import Post, Category, Comment
+from .forms  import BlogForm, CategoryForm, CommentForm
 from django.shortcuts import render,redirect
 # Create your views here
 
@@ -115,6 +115,24 @@ class BlogAddCategory(TemplateView):
             return redirect ('blog-home')
         
         return render(request,self.template_name,{'form':form,})
+
+def CommentsPage(request):
+
+    form = CommentForm()
+    commentxx = Comment.objects.all()
+    
+    if request.method=="POST":
+        form = CommentForm(request.POST)
+        
+        
+        if form.is_valid():
+            
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.save()
+            return redirect('blog-home')
+    
+    return render(request, 'blog/blogcomments.html', {'form':form, 'commentxx':commentxx})
 
 def CategoryPage(request, category):
     

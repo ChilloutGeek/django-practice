@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import Post, Category
+from .models import Post, Category, Comment
 
 #category_list = [('sport', 'sport'),('games','games')]
 
@@ -35,3 +35,11 @@ class CategoryForm(ModelForm):
              'name':forms.TextInput(attrs={"class":'form-control'}),
 
         }
+
+class CommentForm(ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = ['text']
+
+     
