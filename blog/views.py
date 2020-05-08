@@ -29,26 +29,26 @@ class BlogCreate(TemplateView):
 
         form = BlogForm(request.POST)
         
-<<<<<<< HEAD
+
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user #get user from author model
             post.save()
             return redirect ('blog-home')
-=======
+
         if form.is_valid(): 
             post = form.save(commit=False) #get modelform data but do not save to database
             post.author = request.user #get user data from author model
             post.save() #save to database
             return redirect ('/home')
->>>>>>> f56f5afbc2061bca5cdeebd66e7bbde1d2e2cbd3
+
         return render(request,self.template_name,{'form':form,})
 
 class BlogUpdate(TemplateView):
 
     template_name= "blog/blogupdate.html"
 
-<<<<<<< HEAD
+
 
     def get(self,request,pk):
         postx = Post.objects.get(id=pk)
@@ -116,13 +116,15 @@ class BlogAddCategory(TemplateView):
         
         return render(request,self.template_name,{'form':form,})
 
+def CategoryPage(request, category):
+    
+    categorypost = Post.objects.filter(category=category)
 
+    return render(request, 'blog/blogcategory.html', {'categorypost':categorypost})
 
 
 class AboutMe(TemplateView):
 
     template_name ="blog/about_me.html"
-=======
-def about(request):
-    return render(request, 'blog/about_me.html')
->>>>>>> f56f5afbc2061bca5cdeebd66e7bbde1d2e2cbd3
+
+

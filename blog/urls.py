@@ -9,5 +9,6 @@ urlpatterns = [
     path('home/createblog/', BlogCreate.as_view(), name = 'blog-create'),
     path('home/updateblog/<int:pk>/', BlogUpdate.as_view(), name = 'blog-update'),
     path('home/blogdelete/<int:pk>/', BlogDelete.as_view(), name = 'blog-delete'),
-    path('home/createcategory/', BlogAddCategory.as_view(), name = 'blog-category')
+    path('home/createcategory/', BlogAddCategory.as_view(), name = 'blog-category'),
+    path('home/blogcategory/<str:category>/', views.CategoryPage, name = 'blog-categorypage'),
 ]   
