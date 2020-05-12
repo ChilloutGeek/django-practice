@@ -15,6 +15,24 @@ class BlogPost(ListView):
 class BlogView(DetailView):
     model = Post
     template_name = 'blog/detailview.html'
+    
+    def get(self,request,pk):
+        form = CommentForm()
+        post = Post.objects.get(pk=pk)
+        comments = post.comment_set.all()
+        return render(request,self.template_name,{'form':form,'post':post,'comments':comments})
+    
+    def post(self,request,pk):
+        post = Post.objects.get(pk=pk)
+        form = CommentForm(request.POST)
+        comments = post.comment_set.all()
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.post = post
+            new_comment.author = request.user
+            new_comment.save()
+            return render(request,self.template_name,{'form':form,'post':post,'comments':comments, 'new_comment':new_comment})
+            return redirect ('blog-home')
 
 class BlogCreate(TemplateView):
 
@@ -38,7 +56,7 @@ class BlogCreate(TemplateView):
 
         if form.is_valid(): 
             post = form.save(commit=False) #get modelform data but do not save to database
-            post.author = request.user #get user data from author model
+            post.author = request.user #input user data from author model
             post.save() #save to database
             return redirect ('/home')
 
