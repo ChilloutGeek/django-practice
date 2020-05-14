@@ -4,15 +4,20 @@ from django.views.generic import ListView,DetailView,TemplateView
 from .models import Post, Category, Comment
 from .forms  import BlogForm, CategoryForm, CommentForm
 from django.shortcuts import render,redirect
+from django.contrib.auth.decorators import login_required
 # Create your views here
 
 class BlogPost(ListView):
+    login_required = True
+    login_url = 'login'
 
     model = Post
     template_name = 'blog/content.html'
     context_object_name = "blog_entry"
 
-class BlogView(DetailView):
+class BlogView(TemplateView):
+    login_required = True
+    login_url = 'login'
     model = Post
     template_name = 'blog/detailview.html'
     
@@ -32,10 +37,11 @@ class BlogView(DetailView):
             new_comment.author = request.user
             new_comment.save()
             return render(request,self.template_name,{'form':form,'post':post,'comments':comments, 'new_comment':new_comment})
-            return redirect ('blog-home')
+            return redirect ('blog_home')
 
 class BlogCreate(TemplateView):
-
+    login_url = 'login'
+    login_required = True
     template_name = "blog/createblog.html"
 
     def get(self,request): #get modelform
@@ -52,18 +58,13 @@ class BlogCreate(TemplateView):
             post = form.save(commit=False)
             post.author = request.user #get user from author model
             post.save()
-            return redirect ('blog-home')
-
-        if form.is_valid(): 
-            post = form.save(commit=False) #get modelform data but do not save to database
-            post.author = request.user #input user data from author model
-            post.save() #save to database
-            return redirect ('/home')
+            return redirect ('blog_home')
 
         return render(request,self.template_name,{'form':form,})
 
 class BlogUpdate(TemplateView):
-
+    login_url = 'login'
+    login_required = True
     template_name= "blog/blogupdate.html"
 
 
@@ -85,11 +86,12 @@ class BlogUpdate(TemplateView):
             post = form.save(commit=False)
             post.author = request.user #get user from author model
             post.save()
-            return redirect ('blog-home')
+            return redirect ('blog_home')
         return render(request,self.template_name,{'form':form,})
 
 class BlogDelete(TemplateView):
-
+    login_required = True 
+    login_url = 'login'  
     template_name="blog/blogdelete.html"
 
     def get(self,request,pk):
@@ -107,12 +109,14 @@ class BlogDelete(TemplateView):
         if form.is_valid():
             
             postxx.delete()
-            return redirect ('blog-home')
+            return redirect ('blog_home')
 
         return render(request,self.template_name,)
 
 class BlogAddCategory(TemplateView):
 
+    login_required = True
+    login_url = 'login'
     template_name="blog/addcategory.html"
  
     def get(self,request):
@@ -130,12 +134,13 @@ class BlogAddCategory(TemplateView):
         if form.is_valid():
             
             form.save()
-            return redirect ('blog-home')
+            return redirect ('blog_home')
         
         return render(request,self.template_name,{'form':form,})
 
 def CommentsPage(request):
-
+    login_required = True
+    login_url = 'login'
     form = CommentForm()
     commentxx = Comment.objects.all()
     
@@ -148,12 +153,13 @@ def CommentsPage(request):
             comment = form.save(commit=False)
             comment.author = request.user
             comment.save()
-            return redirect('blog-home')
+            return redirect('blog_home')
     
     return render(request, 'blog/blogcomments.html', {'form':form, 'commentxx':commentxx})
 
 def CategoryPage(request, category):
-    
+    login_required = True
+    login_url = 'login'
     categorypost = Post.objects.filter(category=category)
 
     return render(request, 'blog/blogcategory.html', {'categorypost':categorypost})
