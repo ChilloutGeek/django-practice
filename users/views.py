@@ -17,7 +17,6 @@ def register(request):
          
         if form.is_valid():
             form.save()
-            user = c
             messages.success(request, 'you have succesfully registered')
             return redirect ('login')
     
@@ -43,6 +42,7 @@ def loginpage(request):
     return render(request, 'users/loginpage.html')
 
 def logoutuser(request):
+
     logout(request)
     return redirect('login')
 

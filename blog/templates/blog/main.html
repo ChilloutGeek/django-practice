@@ -25,8 +25,15 @@
       <a class="nav-item nav-link" href="/about_me">Profile</a>
     </div>
   </div>
-  <span> hello {{request.user}}</span>
-  <span><a href="{% url 'logout' %}"> logout </a></span>
+<form method="POST" action="">
+          
+{% csrf_token %}
+{{ form.title }}
+
+<button type="SUBMIT" class="btn btn-primary">search </button> 
+</form>
+  <span>< hello {{request.user}}</span>
+  <span><a href="{% url 'logout' %}"> logout </a></span>  
 </nav>
 
 <div class="container">

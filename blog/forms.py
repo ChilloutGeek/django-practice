@@ -42,4 +42,15 @@ class CommentForm(ModelForm):
         model = Comment
         fields = ['text']
 
+class SearchForm(ModelForm):
+    
+    class Meta:
+        model = Post
+        fields = ['title']
+
+        widgets = {
+            'title':forms.TextInput(attrs={"class":'form-control'}),
+
+        }
+
      

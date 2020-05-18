@@ -15,6 +15,7 @@ class BlogPost(ListView):
     template_name = 'blog/content.html'
     context_object_name = "blog_entry"
 
+
 class BlogView(TemplateView):
     login_required = True
     login_url = 'login'
@@ -136,11 +137,17 @@ class BlogAddCategory(TemplateView):
             form.save()
             return redirect ('blog_home')
         
-        return render(request,self.template_name,{'form':form,})
+        return render(request,self.template_name,{'form':form})
+
+def searchbar(request):
+    
+    form = SearchForm()
+    if request.method == "POST":
+        form = SearchForm(request.POST)
+
+    return render(request, 'blog/content.html', {'form':form})
 
 def CommentsPage(request):
-    login_required = True
-    login_url = 'login'
     form = CommentForm()
     commentxx = Comment.objects.all()
     
@@ -158,8 +165,6 @@ def CommentsPage(request):
     return render(request, 'blog/blogcomments.html', {'form':form, 'commentxx':commentxx})
 
 def CategoryPage(request, category):
-    login_required = True
-    login_url = 'login'
     categorypost = Post.objects.filter(category=category)
 
     return render(request, 'blog/blogcategory.html', {'categorypost':categorypost})
