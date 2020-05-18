@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView,DetailView,TemplateView
 
 from .models import Post, Category, Comment
-from .forms  import BlogForm, CategoryForm, CommentForm
+from .forms  import BlogForm, CategoryForm, CommentForm, SearchForm
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 # Create your views here
