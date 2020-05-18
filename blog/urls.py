@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import BlogPost,BlogView,BlogCreate,BlogUpdate,BlogDelete,AboutMe,BlogAddCategory
+from .views import BlogPost,BlogView,BlogCreate,BlogUpdate,BlogDelete,AboutMe,BlogAddCategory,BlogSearch
 
 urlpatterns = [
 
@@ -13,4 +13,5 @@ urlpatterns = [
     path('home/createcategory/', BlogAddCategory.as_view(), name = 'blog-category'),
     path('home/blogcategory/<str:category>/', views.CategoryPage, name = 'blog-categorypage'),
     path('home/blogcomments/', views.CommentsPage, name = 'blog-comments'),
+    path('home/blogsearch/', BlogSearch.as_view(), name= 'blog_search'),
    ]

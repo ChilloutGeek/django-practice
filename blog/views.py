@@ -139,13 +139,31 @@ class BlogAddCategory(TemplateView):
         
         return render(request,self.template_name,{'form':form})
 
-def searchbar(request):
-    
-    form = SearchForm()
-    if request.method == "POST":
-        form = SearchForm(request.POST)
+class BlogSearch(TemplateView):
+   
+   model = Post
+   template_name = 'blog/blogsearch.html'
+   
+   def get(self,request):
 
-    return render(request, 'blog/main.html', {'form':form})
+    search_text = request.POST['search_text']
+
+    posts = Post.objects.filter(title__icontains=search_text)
+
+    return render(request, self.template_name, {'posts':posts, 'search_text':search_text})
+
+
+
+   def post(self, request):
+    
+    search_text = request.POST['search_text']
+
+    posts = Post.objects.filter(title__icontains=search_text)
+
+    return render(request, self.template_name, {'posts':posts, 'search_text':search_text})
+
+
+
 
 def CommentsPage(request):
     form = CommentForm()
