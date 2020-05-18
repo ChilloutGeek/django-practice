@@ -145,7 +145,7 @@ def searchbar(request):
     if request.method == "POST":
         form = SearchForm(request.POST)
 
-    return render(request, 'blog/content.html', {'form':form})
+    return render(request, 'blog/main.html', {'form':form})
 
 def CommentsPage(request):
     form = CommentForm()
