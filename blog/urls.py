@@ -13,5 +13,5 @@ urlpatterns = [
     path('home/createcategory/', BlogAddCategory.as_view(), name = 'blog-category'),
     path('home/blogcategory/<str:category>/', views.CategoryPage, name = 'blog-categorypage'),
     path('home/blogcomments/', views.CommentsPage, name = 'blog-comments'),
-    path('home/blogsearch/', BlogSearch.as_view(), name= 'blog_search'),
+    path('home/blogsearch/', BlogSearch.as_view(), name = 'blog_search'),
    ]
