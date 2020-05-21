@@ -146,11 +146,11 @@ class BlogSearch(TemplateView):
    
    def get(self,request):
 
-    search_text = request.POST['search_text']
+    search_text = request.GET['search_text']
 
     posts = Post.objects.filter(title__icontains=search_text)
 
-    return render(request, self.template_name, {'posts':posts, 'search_text':search_text})
+    return render(request, self.template_name, {'search_text':search_text, 'posts':posts})
 
 
 
@@ -160,7 +160,7 @@ class BlogSearch(TemplateView):
 
     posts = Post.objects.filter(title__icontains=search_text)
 
-    return render(request, self.template_name, {'posts':posts, 'search_text':search_text})
+    return render(request, self.template_name, {'search_text':search_text, 'posts':posts})
 
 
 

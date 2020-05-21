@@ -5,6 +5,7 @@
 
  <!-- Blog Entries Column -->
       <div class="col-md-8">
+{% for searchpost in posts %}
 
         <h3 class="my-4">Page Heading
           <small>Secondary Text</small>
@@ -12,12 +13,12 @@
         <div class="card mb-4">
           <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
           <div class="card-body">
-            <h2 class="card-title">{{ posts.title }}</h2>
-            <p class="card-text">{{ posts.body }} !</p>
+            <h2 class="card-title">{{ searchpost.title }}</h2>
+            <p class="card-text">{{ searchpost.body }} !</p>
           </div>
           <div class="card-footer text-muted">
-            {{ posts.datecreated }}
-            <span class="text-info mr-2"> {{ posts.author }} </span>
+            {{ searchpost.datecreated }}
+            <span class="text-info mr-2"> {{ searchpost.author }} </span>
           </div>
         </div>
 
@@ -36,7 +37,7 @@
       </div>
       <!-- Sidebar Widgets Column -->
       <div class="col-md-4">
-
+{% endfor %}
 
 
 

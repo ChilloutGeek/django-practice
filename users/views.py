@@ -1,13 +1,15 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render,redirect,reverse
+
+from django.views.generic import ListView,DetailView,TemplateView
+
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 
-from django.shortcuts import render,redirect,reverse
-
-
 
 from .forms import CreateUserForm
-
+from .models import Account 
 # Create your views here.ssss
 def register(request):
     form = CreateUserForm()
@@ -25,7 +27,7 @@ def register(request):
 def loginpage(request):
 
     if request.method == "POST":
-        
+
         username = request.POST.get('username')
         password = request.POST.get('password')
 
@@ -36,7 +38,7 @@ def loginpage(request):
             return redirect('blog_home')
 
         else:
-            messages.error(request, 'userame or password is incorrect')
+            messages.error(request, 'username or password is incorrect')
 
 
     return render(request, 'users/loginpage.html')
@@ -45,4 +47,35 @@ def logoutuser(request):
 
     logout(request)
     return redirect('login')
+
+
+class UserProfile(TemplateView):
+
+    template_name = 'users/profilepage.html'
+
+
+
+class PasswordChangeView():
+    
+    template_name = 'users/passwordchange.html'
+
+
+    def get(self, request):
+        form = PasswordChangeForm()
+
+        return render(request, self.template_name, {'form':form})
+
+    def post(self,request):
+
+        form = PasswordChangeForm(request.POST)
+
+        if form.is_valid():
+            
+            form.save()
+
+            return render(request,self.template_name, {'form':form})
+
+
+class PasswordChangeDoneView():
+    template_name = 'users/passwordchangedone.html'
 

@@ -5,7 +5,12 @@
         <h1 class="my-4"> Page Heading
           <small>Secondary Text</small>
         </h1>
-        
+<form method="post" action="blogsearch/">
+    {% csrf_token %}
+    <input type="text" name="search_text">
+    <button type="submit">Search</button>
+</form>
+
         {% for entry in blog_entry %}
         <!-- Blog Post -->
         <div class="card mb-2">

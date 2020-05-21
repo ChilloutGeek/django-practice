@@ -22,14 +22,10 @@
       <a class="nav-item nav-link active" href="/home">Home </a>
       <a class="nav-item nav-link" href="/home/createblog">Create Blog</a>
       <a class="nav-item nav-link" href="/home/createcategory">Create Category</a>
-      <a class="nav-item nav-link" href="/about_me">Profile</a>
+      <a class="nav-item nav-link" href="/home/profile">Profile</a>
     </div>
   </div>
-<form method="post" action="blogsearch/">
-    {% csrf_token %}
-    <input type="text" name="search_text">
-    <button type="submit">Search</button>
-</form>
+
   <span>< hello {{request.user}}</span>
   <span><a href="{% url 'logout' %}"> logout </a></span>  
 </nav>

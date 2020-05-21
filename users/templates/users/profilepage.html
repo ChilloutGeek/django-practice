@@ -1,0 +1,13 @@
+{% extends 'blog/main.html' %}
+{% block content %}
+<h3> this is your profile page </h3>
+
+<br>
+<h3> {{user.username}} </h3>
+<h3> {{user.email}} </h3>
+<h3> {{user.account.description}} </h3>
+<img src=" {{user.account.profilepic}}"> </img>
+
+
+<a href="{% url 'changepassword' %}"> update password </a>
+{% endblock %}
