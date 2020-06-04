@@ -6,7 +6,7 @@
 {% for entry in categorypost %}
      <!-- Blog Post -->
         <div class="card mb-2">
-          <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+          <img class="card-img-top" src="{{ entry.photo.url }}" alt="Card image cap">
           <div class="card-body">
             <h2 class="card-title">{{ entry.title }}</h2>
             <p class="card-text">{{ entry.body|truncatechars:100 }} !</p>

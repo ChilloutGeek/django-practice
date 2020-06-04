@@ -1,13 +1,14 @@
 {% extends 'blog/main.html' %}
+
 {% block content %}
 <h3> this is your profile page </h3>
 
 <br>
 <h3> {{user.username}} </h3>
 <h3> {{user.email}} </h3>
+<h3> {{user.account.name}} </h3>
 <h3> {{user.account.description}} </h3>
-<img src=" {{user.account.profilepic}}"> </img>
-
-
+<img class="rounded-circle account-img" src="{{user.account.profilepic.url}}"> </img>
 <a href="{% url 'changepassword' %}"> update password </a>
+<a href="{% url 'editprofile' %}"> edit profile </a>
 {% endblock %}

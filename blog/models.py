@@ -20,6 +20,7 @@ class Post(models.Model):
     dateupdated = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.CharField(max_length=250, verbose_name="category")
+    photo = models.ImageField(upload_to="blogpic")
 
     class Meta:
         ordering = ['datecreated']

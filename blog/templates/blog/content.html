@@ -1,10 +1,6 @@
 {% extends 'blog/main.html' %}
 {% block content %}
 
-
-        <h1 class="my-4"> Page Heading
-          <small>Secondary Text</small>
-        </h1>
 <form method="post" action="blogsearch/">
     {% csrf_token %}
     <input type="text" name="search_text">
@@ -14,7 +10,7 @@
         {% for entry in blog_entry %}
         <!-- Blog Post -->
         <div class="card mb-2">
-          <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+          <img class="card-img-top" src="{{entry.photo.url}}" alt="Card image cap">
           <div class="card-body">
             <h2 class="card-title">{{ entry.title }}</h2>
             <p class="card-text">{{ entry.body|truncatechars:100 }} !</p>

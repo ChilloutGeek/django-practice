@@ -30,7 +30,7 @@ class BlogView(TemplateView):
     
     def post(self,request,pk):
         post = Post.objects.get(pk=pk)
-        form = CommentForm(request.POST)
+        form = CommentForm(request.POST,request.FILES)
         comments = post.comment_set.all()
         if form.is_valid():
             new_comment = form.save(commit=False)
@@ -52,7 +52,7 @@ class BlogCreate(TemplateView):
 
     def post(self, request): #post method modelform
 
-        form = BlogForm(request.POST)
+        form = BlogForm(request.POST, request.FILES)
         
 
         if form.is_valid():
@@ -81,7 +81,7 @@ class BlogUpdate(TemplateView):
 
         postx = Post.objects.get(id=pk) #object for update
 
-        form = BlogForm(request.POST, instance=postx)
+        form = BlogForm(request.POST,request.FILES, instance=postx)
         
         if form.is_valid():
             post = form.save(commit=False)
@@ -105,7 +105,7 @@ class BlogDelete(TemplateView):
     def post(self,request,pk):
 
         postxx = Post.objects.get(id=pk) #object for update
-        form = BlogForm(request.POST, instance=postxx)
+        form = BlogForm(request.POST,request.FILES, instance=postxx)
         
         if form.is_valid():
             
@@ -183,7 +183,9 @@ def CommentsPage(request):
     return render(request, 'blog/blogcomments.html', {'form':form, 'commentxx':commentxx})
 
 def CategoryPage(request, category):
+    
     categorypost = Post.objects.filter(category=category)
+
 
     return render(request, 'blog/blogcategory.html', {'categorypost':categorypost})
 

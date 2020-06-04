@@ -5,12 +5,11 @@
 
  <!-- Blog Entries Column -->
       <div class="col-md-8">
-
-        <h3 class="my-4">Page Heading
-          <small>Secondary Text</small>
         <!-- Blog Post -->
         <div class="card mb-4">
-          <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+          <img class="card-img-top" src="{{ post.photo.url }}" alt="Card image cap">
+
+
           <div class="card-body">
             <h2 class="card-title">{{ post.title }}</h2>
             <p class="card-text">{{ post.body }} !</p>
@@ -21,35 +20,38 @@
           </div>
         </div>
 
-         <!-- Comment Section -->
-         {% for comment in comments %}
-        <div class="card mb-4">
-          <div class="card-body">
-            <h2 class="card-title">{{ comment.text }}</h2>
-            <p class="card-text"></p>
-          </div>
-          <div class="card-footer text-muted">
-            {{ comment.created }}
-            <span class="text-info mr-2"> {{ comment.author }} </span>
-          </div>
-        </div>
-          {% endfor %}
+         <!-- Create Comment -->
+      <div class="container">
+    <div class="row">
+        <h2>Comments <div class="pull-right">
 
-                <!-- Create Comment -->
-        <div class="card mb-2">
-          <div class="card-body">
-            Create Comment
-            <h2 class="card-title"></h2>
-            <form method="POST">
+             <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn btn-primary"> CREATE
-            </button>
-          </form>
-          </div>
-        </div>
-          </p>       
 
+            <button type="SUBMIT" class="btn btn-primary">Add a comment </button> 
+            </form>
+            <div></h2>
+    </div>
+
+
+         <!-- Comment Section -->
+        {% for comment in comments %}
+    <div class="row" id="addcomment" style="display: none;">
+        <form>
+            <textarea class="form-control" placeholder="Comment content..."></textarea><br/>
+            <button class="btn btn-primary">Send</button>
+        </form>
+    </div>
+    <hr>
+    <div class="row comment">
+        <div class="head">
+            <small><strong class='user'>{{comment.author}}</strong> {{comment.created}}</small>
+        </div>    
+        <p>{{ comment.text }} </p>
+    </div>
+    {% endfor %}
+      
       
       <!-- Pagination -->
         <ul class="pagination justify-content-center mb-4">

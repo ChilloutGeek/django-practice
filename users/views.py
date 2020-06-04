@@ -8,9 +8,11 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 
 
-from .forms import CreateUserForm
+from .forms import CreateUserForm, ProfileForm
 from .models import Account 
-# Create your views here.ssss
+
+# Create your views here
+
 def register(request):
     form = CreateUserForm()
     if request.method == "POST":
@@ -31,13 +33,14 @@ def loginpage(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        user = authenticate(request,username=username, password=password)
+        user = authenticate(username=username, password=password)
 
         if user is not None:
             login(request, user)
             return redirect('blog_home')
 
         else:
+            return redirect('login')
             messages.error(request, 'username or password is incorrect')
 
 
@@ -53,6 +56,27 @@ class UserProfile(TemplateView):
 
     template_name = 'users/profilepage.html'
 
+class ProfileEdit(TemplateView):
+
+    template_name = 'users/editprofile.html'
+
+    def get(self,request):
+        profile = Account.objects.filter(user=request.user)
+        form = ProfileForm(instance=profile)
+
+        return render(request, self.template_name, {'form':form})
+
+    def post(self,request):
+        profile = User.objects.filter(user=request.user)
+
+        form = ProfileForm(request.POST,request.FILES, instance=profile)
+
+        if form.is_valid():
+            acc = form.save(commit=False)
+            acc.user = request.user
+            acc.save()
+            return redirect('blog_home')
+        return render(request, self.template_name, {'form':form})
 
 
 class PasswordChangeView():
