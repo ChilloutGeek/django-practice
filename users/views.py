@@ -20,7 +20,8 @@ def register(request):
         form = CreateUserForm(request.POST)
          
         if form.is_valid():
-            form.save()
+            user = form.save()
+            profile = Account.objects.create(user=user)
             messages.success(request, 'you have succesfully registered')
             return redirect ('login')
     
@@ -61,7 +62,7 @@ class ProfileEdit(TemplateView):
     template_name = 'users/editprofile.html'
 
     def get(self,request):
-        profile = Account.objects.filter(user=request.user)
+        profile = Account.objects.get(user=request.user)
         form = ProfileForm(instance=profile)
 
         return render(request, self.template_name, {'form':form})
